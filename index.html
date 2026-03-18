@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Анкета маленького пациента — Доктор Катя</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --sage:    #7BAE8E;
+  --sage-d:  #5A8F72;
+  --sage-l:  #EBF5EE;
+  --sage-ll: #F4FAF6;
+  --peach:   #F5A97A;
+  --peach-l: #FEF0E6;
+  --rose:    #E8879C;
+  --rose-l:  #FDF0F3;
+  --sky:     #85BDD4;
+  --sky-l:   #EDF6FA;
+  --lav:     #A49BD4;
+  --lav-l:   #F0EEF9;
+  --cream:   #FDFAF5;
+  --text:    #3A3530;
+  --muted:   #9A9090;
+  --border:  #E8E0D8;
+  --white:   #FFFFFF;
+  --r:       18px;
+  --r-sm:    12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+
+body {
+  font-family:'Nunito',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  font-size:16px;
+  line-height:1.55;
+  min-height:100vh;
+}
+
+/* ─── DECORATIVE BG ─── */
+body::before {
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 0%, rgba(123,174,142,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 95% 20%, rgba(245,169,122,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 100%, rgba(164,155,212,0.08) 0%, transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+/* ─── HEADER ─── */
+.header {
+  position:relative;z-index:1;
+  padding:36px 20px 32px;
+  text-align:center;
+  background:linear-gradient(160deg, #7BAE8E 0%, #A8C9B3 50%, #C8DFC5 100%);
+  overflow:hidden;
+}
+.header::before {
+  content:'';position:absolute;
+  top:-60px;right:-60px;
+  width:200px;height:200px;
+  background:rgba(255,255,255,0.12);
+  border-radius:50%;
+}
+.header::after {
+  content:'';position:absolute;
+  bottom:-80px;left:-40px;
+  width:240px;height:240px;
+  background:rgba(255,255,255,0.08);
+  border-radius:50%;
+}
+
+.header-flowers {
+  font-size:42px;
+  margin-bottom:12px;
+  display:block;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+
+.header h1 {
+  font-family:'Lora',serif;
+  font-size:24px;
+  font-weight:600;
+  color:#fff;
+  letter-spacing:-0.2px;
+  position:relative;z-index:1;
+}
+.header-sub {
+  color:rgba(255,255,255,0.85);
+  font-size:14px;
+  margin-top:6px;
+  font-weight:600;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  position:relative;z-index:1;
+}
+.header-pill {
+  display:inline-block;
+  background:rgba(255,255,255,0.22);
+  backdrop-filter:blur(6px);
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  padding:8px 18px;
+  border-radius:30px;
+  margin-top:14px;
+  position:relative;z-index:1;
+  border:1px solid rgba(255,255,255,0.30);
+  line-height:1.6;
+}
+
+/* ─── STICKY BAR ─── */
+.sticky-bar {
+  position:sticky;top:0;z-index:100;
+  background:rgba(253,250,245,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:10px 20px;
+  display:flex;align-items:center;gap:14px;
+}
+.prog-wrap{flex:1;height:8px;background:#EDE8E2;border-radius:20px;overflow:hidden}
+.prog-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--sage),var(--peach));transition:width .5s cubic-bezier(.4,0,.2,1)}
+.prog-label{font-size:12px;font-weight:800;color:var(--sage-d);white-space:nowrap;letter-spacing:0.3px}
+
+/* ─── STEP DOTS ─── */
+.dots{display:flex;justify-content:center;gap:7px;padding:14px 0 2px;position:relative;z-index:1}
+.dot{width:8px;height:8px;border-radius:20px;background:#DDD8D2;transition:all .35s cubic-bezier(.4,0,.2,1)}
+.dot.active{width:26px;background:var(--sage)}
+.dot.done{background:var(--sage-d)}
+
+/* ─── SECTION WRAPPER ─── */
+.section{display:none;position:relative;z-index:1;animation:slideIn .35s ease}
+.section.active{display:block}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── SECTION CARD ─── */
+.s-card {
+  margin:18px 14px 0;
+  border-radius:var(--r);
+  overflow:hidden;
+  box-shadow:0 4px 24px rgba(90,143,114,0.10), 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.s-head {
+  padding:20px 22px 18px;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.s-icon-wrap{
+  width:52px;height:52px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,0.10);
+}
+.s-title{font-family:'Lora',serif;font-size:18px;font-weight:600;color:#fff;line-height:1.2}
+.s-sub{font-size:13px;color:rgba(255,255,255,0.85);margin-top:3px;font-weight:600}
+
+/* Section accent colors */
+.acc-sage .s-head{background:linear-gradient(135deg,#7BAE8E,#5A8F72)}
+.acc-sage .s-icon-wrap{background:rgba(255,255,255,0.22)}
+.acc-peach .s-head{background:linear-gradient(135deg,#F5A97A,#E08450)}
+.acc-peach .s-icon-wrap{background:rgba(255,255,255,0.22)}
+.acc-rose .s-head{background:linear-gradient(135deg,#E8879C,#CC6080)}
+.acc-rose .s-icon-wrap{background:rgba(255,255,255,0.22)}
+.acc-sky .s-head{background:linear-gradient(135deg,#85BDD4,#5B9BB8)}
+.acc-sky .s-icon-wrap{background:rgba(255,255,255,0.22)}
+.acc-lav .s-head{background:linear-gradient(135deg,#A49BD4,#7F74BC)}
+.acc-lav .s-icon-wrap{background:rgba(255,255,255,0.22)}
+.acc-teal .s-head{background:linear-gradient(135deg,#6BBDB0,#4A9B8E)}
+.acc-teal .s-icon-wrap{background:rgba(255,255,255,0.22)}
+.acc-mint .s-head{background:linear-gradient(135deg,#85C9B4,#5BA898)}
+.acc-mint .s-icon-wrap{background:rgba(255,255,255,0.22)}
+.acc-warm .s-head{background:linear-gradient(135deg,#C4A882,#A88A62)}
+.acc-warm .s-icon-wrap{background:rgba(255,255,255,0.22)}
+
+.s-body{background:var(--white);padding:4px 0 18px}
+
+/* ─── QUESTIONS ─── */
+.q{padding:18px 20px 6px;border-bottom:1px solid #F5F0EB}
+.q:last-child{border-bottom:none;padding-bottom:12px}
+
+.q-label{
+  font-weight:800;font-size:15px;color:var(--text);
+  margin-bottom:5px;display:block;
+}
+.q-hint{font-size:13px;color:var(--muted);margin-bottom:10px;display:block;font-weight:600}
+
+.q-tip{
+  display:flex;gap:9px;align-items:flex-start;
+  background:var(--sage-ll);
+  border-left:3px solid var(--sage);
+  border-radius:0 10px 10px 0;
+  padding:10px 12px;
+  margin-bottom:12px;
+  font-size:13px;color:#4A6B55;font-weight:600;line-height:1.5;
+}
+.q-tip-icon{flex-shrink:0;font-size:15px;margin-top:1px}
+
+.q-warn{
+  display:flex;gap:9px;align-items:flex-start;
+  background:#FFF6ED;
+  border-left:3px solid var(--peach);
+  border-radius:0 10px 10px 0;
+  padding:10px 12px;margin-bottom:12px;
+  font-size:13px;color:#8B5E30;font-weight:600;line-height:1.5;
+}
+
+/* ─── INPUTS ─── */
+input[type=text],input[type=email],textarea{
+  width:100%;
+  border:2px solid var(--border);
+  border-radius:var(--r-sm);
+  padding:12px 14px;
+  font-size:15px;font-family:'Nunito',sans-serif;
+  font-weight:600;color:var(--text);
+  background:var(--white);outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  -webkit-appearance:none;
+}
+input[type=text]::placeholder,input[type=email]::placeholder,textarea::placeholder{
+  color:#C5BEB6;font-weight:600;
+}
+input[type=text]:focus,input[type=email]:focus,textarea:focus{
+  border-color:var(--sage);
+  box-shadow:0 0 0 3px rgba(123,174,142,0.18);
+}
+textarea{min-height:90px;resize:vertical;line-height:1.6}
+textarea.tall{min-height:120px}
+textarea.xtall{min-height:150px}
+
+/* ─── OPTION BUTTONS ─── */
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+
+.opt{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 15px;
+  border:2px solid var(--border);
+  border-radius:var(--r-sm);
+  cursor:pointer;
+  transition:border-color .18s,background .18s,transform .12s;
+  background:var(--white);user-select:none;
+  position:relative;overflow:hidden;
+}
+.opt::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(123,174,142,0.06),rgba(245,169,122,0.04));
+  opacity:0;transition:opacity .2s;
+}
+.opt:active{transform:scale(0.985)}
+.opt.selected{border-color:var(--sage);background:var(--sage-ll)}
+.opt.selected::before{opacity:1}
+
+.opt input[type=radio],.opt input[type=checkbox]{
+  width:20px;height:20px;min-width:20px;
+  accent-color:var(--sage);cursor:pointer;
+  flex-shrink:0;
+}
+.opt-em{font-size:20px;flex-shrink:0;line-height:1}
+.opt-txt{font-size:15px;color:var(--text);font-weight:700;line-height:1.35}
+.opt-sub{font-size:12px;color:var(--muted);font-weight:600;margin-top:1px}
+
+/* ─── CONDITIONAL ─── */
+.cond{display:none;margin-top:10px}
+.cond.show{display:block}
+.cond-inner{
+  background:#F9F6F2;border:1px dashed #D8D0C8;
+  border-radius:var(--r-sm);padding:14px 16px;
+}
+.cond-inner label{
+  font-size:13px;color:var(--muted);font-weight:700;
+  display:block;margin-bottom:7px;
+}
+
+/* ─── BADGE GROUPS (symptom tags) ─── */
+.badge-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.badge-check{display:none}
+.badge-label{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:8px 13px;
+  border:2px solid var(--border);
+  border-radius:30px;
+  font-size:14px;font-weight:700;
+  color:var(--muted);background:var(--white);
+  cursor:pointer;transition:all .18s;
+  user-select:none;
+}
+.badge-label:active{transform:scale(0.96)}
+.badge-check:checked + .badge-label{
+  border-color:var(--sage);
+  background:var(--sage-l);
+  color:var(--sage-d);
+}
+
+/* ─── NAV ─── */
+.nav{
+  position:relative;z-index:1;
+  padding:20px 14px 38px;
+  display:flex;gap:10px;max-width:600px;margin:0 auto;
+}
+.btn{
+  border:none;border-radius:var(--r-sm);
+  font-family:'Nunito',sans-serif;
+  font-size:16px;font-weight:800;
+  cursor:pointer;padding:16px 20px;
+  transition:transform .15s,box-shadow .15s;
+  letter-spacing:0.2px;
+}
+.btn:active{transform:scale(0.97)}
+.btn-back{
+  background:var(--white);color:var(--muted);
+  border:2px solid var(--border);
+  flex:0 0 58px;display:none;
+  font-size:20px;
+}
+.btn-next{
+  flex:1;
+  background:linear-gradient(135deg,var(--sage) 0%,var(--sage-d) 100%);
+  color:#fff;
+  box-shadow:0 5px 18px rgba(90,143,114,0.35);
+}
+.btn-submit{
+  flex:1;
+  background:linear-gradient(135deg,var(--peach) 0%,#E08450 100%);
+  color:#fff;
+  box-shadow:0 5px 18px rgba(224,132,80,0.38);
+}
+
+/* ─── INTRO CARD ─── */
+.intro-card{
+  margin:16px 14px 0;
+  background:linear-gradient(135deg,var(--peach-l),#FFF9F5);
+  border:1px solid #F5DEC8;
+  border-radius:var(--r);
+  padding:16px 18px;
+  font-size:13px;color:#7A5530;font-weight:700;
+  display:flex;gap:10px;align-items:flex-start;
+  position:relative;z-index:1;
+}
+.intro-card-icon{font-size:22px;flex-shrink:0}
+.intro-card strong{display:block;font-size:14px;margin-bottom:4px;color:#6A4520}
+.intro-card p{font-weight:600;color:#8A6540;line-height:1.55}
+
+/* ─── SUCCESS ─── */
+.success{
+  display:none;text-align:center;
+  padding:60px 24px 80px;position:relative;z-index:1;
+}
+.success.show{display:block}
+.success-anim{
+  font-size:70px;display:block;margin-bottom:20px;
+  animation:bounce .6s ease forwards;
+}
+@keyframes bounce{
+  0%{transform:scale(0)}50%{transform:scale(1.15)}100%{transform:scale(1)}
+}
+.success h2{
+  font-family:'Lora',serif;font-size:24px;
+  color:var(--sage-d);margin-bottom:14px;
+}
+.success p{color:var(--muted);font-size:15px;font-weight:600;line-height:1.7;max-width:340px;margin:0 auto}
+.success-sign{
+  margin-top:36px;padding:18px 24px;
+  background:var(--sage-ll);border-radius:var(--r);
+  display:inline-block;
+  font-family:'Lora',serif;font-style:italic;
+  font-size:16px;color:var(--sage-d);
+}
+
+/* ─── SECTION DIVIDER ─── */
+.s-divider{
+  margin:20px 20px 14px;
+  font-size:11px;font-weight:800;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:10px;
+}
+.s-divider::before,.s-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ─── SMALL NOTE ─── */
+.note-sm{
+  margin:0 20px 2px;
+  font-size:12px;color:var(--muted);font-weight:700;
+  font-style:italic;
+}
+
+/* small red star */
+.req{color:#D46060;margin-left:2px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <span class="header-flowers">🌿🌸🍃</span>
+  <h1>Анкета маленького пациента</h1>
+  <div class="header-sub">заполняет мама или папа</div>
+  <div class="header-pill">Врач интегративной и функциональной медицины<br>Квахаджелидзе Екатерина Гивиевна</div>
+</div>
+
+<!-- STICKY PROGRESS -->
+<div class="sticky-bar">
+  <div class="prog-wrap"><div class="prog-fill" id="pFill" style="width:12.5%"></div></div>
+  <div class="prog-label" id="pLabel">1 / 8</div>
+</div>
+
+<!-- DOTS -->
+<div class="dots" id="dots"></div>
+
+<form id="form" action="https://formspree.io/f/xgonrvwe" method="POST">
+
+<!-- ╔══════════════════════════════╗
+     ║  1. КТО ВАШ МАЛЫШ?          ║
+     ╚══════════════════════════════╝ -->
+<div class="section active" id="s0">
+<div class="s-card acc-sage">
+  <div class="s-head">
+    <div class="s-icon-wrap">🌱</div>
+    <div><div class="s-title">Знакомство</div><div class="s-sub">Расскажите нам о вашем малыше</div></div>
+  </div>
+  <div class="s-body">
+
+    <div class="q">
+      <span class="q-label">Имя ребёнка <span class="req">*</span></span>
+      <span class="q-hint">Как вы его называете дома</span>
+      <input type="text" name="child_name" placeholder="Например: Миша, Сонечка..." required/>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Возраст <span class="req">*</span></span>
+      <input type="text" name="child_age" placeholder="Например: 1 год 4 месяца или 9 лет" required/>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Пол <span class="req">*</span></span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="sex" value="Девочка" required/>
+          <span class="opt-em">👧</span><span class="opt-txt">Девочка</span></label>
+        <label class="opt"><input type="radio" name="sex" value="Мальчик"/>
+          <span class="opt-em">👦</span><span class="opt-txt">Мальчик</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Вес и рост сейчас</span>
+      <input type="text" name="weight_height" placeholder="Например: 14 кг, 98 см"/>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Это наша <span class="req">*</span></span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="visit" value="Первая консультация" required/>
+          <span class="opt-em">🌷</span>
+          <div><div class="opt-txt">Первая консультация</div><div class="opt-sub">Обращаемся впервые</div></div></label>
+        <label class="opt"><input type="radio" name="visit" value="Повторная консультация"/>
+          <span class="opt-em">🔄</span>
+          <div><div class="opt-txt">Повторная консультация</div><div class="opt-sub">Уже были у Доктора Кати</div></div></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Ваше имя (мамы или папы) <span class="req">*</span></span>
+      <input type="text" name="parent_name" placeholder="Как к вам обращаться" required/>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Email для связи <span class="req">*</span></span>
+      <input type="email" name="_replyto" placeholder="your@email.com" required/>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ╔══════════════════════════════╗
+     ║  2. ЧТО БЕСПОКОИТ?          ║
+     ╚══════════════════════════════╝ -->
+<div class="section" id="s1">
+<div class="s-card acc-peach">
+  <div class="s-head">
+    <div class="s-icon-wrap">💬</div>
+    <div><div class="s-title">Что беспокоит?</div><div class="s-sub">Расскажите своими словами</div></div>
+  </div>
+  <div class="s-body">
+
+    <div class="q">
+      <span class="q-label">Что вас беспокоит больше всего? <span class="req">*</span></span>
+      <div class="q-tip"><span class="q-tip-icon">🌟</span>Пишите так, как вы это видите — своими словами, без медицинских терминов. Подробный рассказ помогает нам понять картину намного глубже.</div>
+      <textarea name="complaint" class="xtall" placeholder="Например: дочка постоянно жалуется на животик, особенно утром. Плохо спит, часто капризничает, кожа шелушится на щёчках..." required></textarea>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Когда это началось и с чем вы это связываете?</span>
+      <div class="q-tip"><span class="q-tip-icon">🕐</span>Хронология — ключ к пониманию причины. «После антибиотиков», «с введением прикорма», «после рождения брата» — любая деталь важна.</div>
+      <textarea name="complaint_when" placeholder="Примерно когда началось и что могло это запустить..."></textarea>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Что уже пробовали и что помогало / не помогало?</span>
+      <div class="q-tip"><span class="q-tip-icon">💡</span>Это помогает не повторять то, что не сработало, и усилить то, что уже даёт результат.</div>
+      <textarea name="tried" placeholder="Диеты, препараты, добавки, специалисты — и что было в результате..."></textarea>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Официальные диагнозы ребёнка (если есть)</span>
+      <textarea name="diagnoses" placeholder="Например: атопический дерматит, анемия, СДВГ, задержка речи..."></textarea>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ╔══════════════════════════════╗
+     ║  3. БЕРЕМЕННОСТЬ И РОДЫ      ║
+     ╚══════════════════════════════╝ -->
+<div class="section" id="s2">
+<div class="s-card acc-rose">
+  <div class="s-head">
+    <div class="s-icon-wrap">🤰</div>
+    <div><div class="s-title">Беременность и роды</div><div class="s-sub">Всё начинается задолго до рождения</div></div>
+  </div>
+  <div class="s-body">
+
+    <div class="intro-card" style="margin:14px 14px 0;border-radius:12px">
+      <span class="intro-card-icon">🌿</span>
+      <div><strong>Почему это важно?</strong><p>Состояние мамы, течение родов и первые дни жизни закладывают фундамент микробиоты, иммунитета и обмена веществ ребёнка.</p></div>
+    </div>
+
+    <div class="q" style="margin-top:14px">
+      <span class="q-label">Как протекала беременность? (выберите всё, что было)</span>
+      <div class="opts">
+        <label class="opt"><input type="checkbox" name="preg[]" value="Угроза прерывания"/><span class="opt-txt">Угроза прерывания</span></label>
+        <label class="opt"><input type="checkbox" name="preg[]" value="Сильный токсикоз"/><span class="opt-txt">Сильный токсикоз</span></label>
+        <label class="opt"><input type="checkbox" name="preg[]" value="Инфекции/ОРВИ во время беременности"/><span class="opt-txt">Инфекции / ОРВИ во время беременности</span></label>
+        <label class="opt"><input type="checkbox" name="preg[]" value="Антибиотики во время беременности"/><span class="opt-txt">Антибиотики во время беременности</span></label>
+        <label class="opt"><input type="checkbox" name="preg[]" value="Гестационный диабет"/><span class="opt-txt">Гестационный диабет / повышение сахара</span></label>
+        <label class="opt"><input type="checkbox" name="preg[]" value="ЭКО/ИКСИ"/><span class="opt-txt">Беременность через ЭКО / ИКСИ</span></label>
+        <label class="opt"><input type="checkbox" name="preg[]" value="Протекала хорошо"/><span class="opt-em">☀️</span><span class="opt-txt">Протекала хорошо, без особенностей</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Принимала ли мама лекарства во время беременности?</span>
+      <div class="q-tip"><span class="q-tip-icon">⚠️</span>Особенно важны: антибиотики, омепразол, гормоны — они влияют на микробиоту и обмен веществ малыша.</div>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="preg_meds" value="Нет, только витамины"/><span class="opt-txt">Нет, только витамины</span></label>
+        <label class="opt"><input type="radio" name="preg_meds" value="Да"/><span class="opt-txt">Да — расскажу подробнее</span></label>
+      </div>
+      <div class="cond" id="c_preg_meds">
+        <div class="cond-inner">
+          <label>Что именно и на каком сроке:</label>
+          <textarea name="preg_meds_d" placeholder="Название, срок беременности..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Срок рождения</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="birth_term" value="38-42 недели (доношенный)"/><span class="opt-em">✅</span><span class="opt-txt">38–42 недели — доношенный</span></label>
+        <label class="opt"><input type="radio" name="birth_term" value="35-37 недель"/><span class="opt-txt">35–37 недель — немного раньше срока</span></label>
+        <label class="opt"><input type="radio" name="birth_term" value="До 35 недель (недоношенный)"/><span class="opt-txt">До 35 недель — недоношенный</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Роды</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="birth_type" value="Естественные"/><span class="opt-em">🌸</span><span class="opt-txt">Естественные роды</span></label>
+        <label class="opt"><input type="radio" name="birth_type" value="Плановое кесарево"/><span class="opt-em">✂️</span><span class="opt-txt">Плановое кесарево сечение</span></label>
+        <label class="opt"><input type="radio" name="birth_type" value="Экстренное кесарево"/><span class="opt-em">⚡</span><span class="opt-txt">Экстренное кесарево сечение</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Желтуха новорождённого</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="jaundice" value="Нет"/><span class="opt-txt">Не было</span></label>
+        <label class="opt"><input type="radio" name="jaundice" value="Лёгкая, прошла сама"/><span class="opt-txt">Лёгкая — прошла без лечения</span></label>
+        <label class="opt"><input type="radio" name="jaundice" value="Фототерапия"/><span class="opt-txt">Была фототерапия (лампа)</span></label>
+      </div>
+      <div class="cond" id="c_jaundice">
+        <div class="cond-inner">
+          <label>Сколько суток?</label>
+          <input type="text" name="jaundice_days" placeholder="Например: 5 суток"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Вскармливание</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="feeding" value="ГВ долгое (более 6 мес)"/><span class="opt-em">🤱</span><span class="opt-txt">Грудное — долго (более 6 мес)</span></label>
+        <label class="opt"><input type="radio" name="feeding" value="ГВ короткое (до 6 мес)"/><span class="opt-em">🤱</span><span class="opt-txt">Грудное — кратко (до 6 мес)</span></label>
+        <label class="opt"><input type="radio" name="feeding" value="Смешанное"/><span class="opt-em">🍼</span><span class="opt-txt">Смешанное (грудь + смесь)</span></label>
+        <label class="opt"><input type="radio" name="feeding" value="С рождения смесь"/><span class="opt-em">🍼</span><span class="opt-txt">С рождения на смеси</span></label>
+      </div>
+      <textarea name="feeding_d" placeholder="Если были сложности — колики, срыгивания, отказ от груди, переход на смесь — расскажите..." style="margin-top:10px"></textarea>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ╔══════════════════════════════╗
+     ║  4. ИСТОРИЯ БОЛЕЗНЕЙ         ║
+     ╚══════════════════════════════╝ -->
+<div class="section" id="s3">
+<div class="s-card acc-sky">
+  <div class="s-head">
+    <div class="s-icon-wrap">📋</div>
+    <div><div class="s-title">История болезней</div><div class="s-sub">Что происходило с рождения</div></div>
+  </div>
+  <div class="s-body">
+
+    <div class="q">
+      <span class="q-label">Как часто ребёнок болеет ОРВИ?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="orvi" value="1-3 раза в год"/><span class="opt-em">😊</span><span class="opt-txt">Редко — 1–3 раза в год</span></label>
+        <label class="opt"><input type="radio" name="orvi" value="4-6 раз в год"/><span class="opt-em">🤧</span><span class="opt-txt">Часто — 4–6 раз в год</span></label>
+        <label class="opt"><input type="radio" name="orvi" value="7+ раз в год"/><span class="opt-em">😰</span><span class="opt-txt">Очень часто — 7 и более раз</span></label>
+        <label class="opt"><input type="radio" name="orvi" value="Практически не болеет"/><span class="opt-em">💪</span><span class="opt-txt">Практически не болеет</span></label>
+      </div>
+      <textarea name="orvi_d" placeholder="Как обычно протекают — легко или с осложнениями (отит, бронхит, долгая температура)?" style="margin-top:10px"></textarea>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Антибиотики — сколько курсов за всю жизнь?</span>
+      <div class="q-tip"><span class="q-tip-icon">⚠️</span>Это один из ключевых факторов состояния микробиоты и иммунитета. Каждый курс — важная информация.</div>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="abx" value="Ни одного"/><span class="opt-txt">Ни одного</span></label>
+        <label class="opt"><input type="radio" name="abx" value="1-2 курса"/><span class="opt-txt">1–2 курса</span></label>
+        <label class="opt"><input type="radio" name="abx" value="3-5 курсов"/><span class="opt-txt">3–5 курсов</span></label>
+        <label class="opt"><input type="radio" name="abx" value="Более 5 курсов"/><span class="opt-txt">Более 5 курсов</span></label>
+      </div>
+      <textarea name="abx_d" placeholder="Если помните — по какому поводу и в каком возрасте. Например: в 1 год — отит, в 3 года — бронхит..." style="margin-top:10px"></textarea>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Операции или госпитализации (кроме рождения)?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="surgery" value="Нет"/><span class="opt-txt">Нет</span></label>
+        <label class="opt"><input type="radio" name="surgery" value="Да"/><span class="opt-txt">Да</span></label>
+      </div>
+      <div class="cond" id="c_surgery">
+        <div class="cond-inner">
+          <label>Что именно и в каком возрасте:</label>
+          <textarea name="surgery_d" placeholder="Например: удаление аденоидов в 4 года..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Наследственность — есть ли у близких родственников: (отметьте всё, что есть)</span>
+      <div class="opts">
+        <label class="opt"><input type="checkbox" name="hered[]" value="Аутоиммунные заболевания"/><span class="opt-txt">Аутоиммунные заболевания</span><span class="opt-sub" style="font-size:11px;display:block">(Хашимото, ревматоидный артрит, целиакия, псориаз)</span></label>
+        <label class="opt"><input type="checkbox" name="hered[]" value="Диабет / ожирение"/><span class="opt-txt">Сахарный диабет / ожирение</span></label>
+        <label class="opt"><input type="checkbox" name="hered[]" value="Аллергия / атопия / астма"/><span class="opt-txt">Аллергия, атопия, астма</span></label>
+        <label class="opt"><input type="checkbox" name="hered[]" value="Психические расстройства / СДВГ"/><span class="opt-txt">Психические расстройства / СДВГ</span></label>
+        <label class="opt"><input type="checkbox" name="hered[]" value="Заболевания ЖКТ"/><span class="opt-txt">Заболевания ЖКТ</span></label>
+        <label class="opt"><input type="checkbox" name="hered[]" value="Значимой наследственности нет"/><span class="opt-em">✅</span><span class="opt-txt">Значимой наследственности нет</span></label>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ╔══════════════════════════════╗
+     ║  5. СИМПТОМЫ                 ║
+     ╚══════════════════════════════╝ -->
+<div class="section" id="s4">
+<div class="s-card acc-lav">
+  <div class="s-head">
+    <div class="s-icon-wrap">🔍</div>
+    <div><div class="s-title">Симптомы сейчас</div><div class="s-sub">Отметьте всё, что есть у ребёнка</div></div>
+  </div>
+  <div class="s-body">
+
+    <div class="s-divider">Животик</div>
+    <div class="q">
+      <div class="badge-wrap">
+        <span><input type="checkbox" class="badge-check" name="gut[]" value="Боли в животе" id="g1"/><label class="badge-label" for="g1">😣 Боли в животе</label></span>
+        <span><input type="checkbox" class="badge-check" name="gut[]" value="Вздутие" id="g2"/><label class="badge-label" for="g2">🎈 Вздутие</label></span>
+        <span><input type="checkbox" class="badge-check" name="gut[]" value="Запор" id="g3"/><label class="badge-label" for="g3">Запор</label></span>
+        <span><input type="checkbox" class="badge-check" name="gut[]" value="Жидкий стул" id="g4"/><label class="badge-label" for="g4">Жидкий стул</label></span>
+        <span><input type="checkbox" class="badge-check" name="gut[]" value="Непереваренная еда в стуле" id="g5"/><label class="badge-label" for="g5">Кусочки пищи в стуле</label></span>
+        <span><input type="checkbox" class="badge-check" name="gut[]" value="Тошнота / рвота" id="g6"/><label class="badge-label" for="g6">🤢 Тошнота</label></span>
+        <span><input type="checkbox" class="badge-check" name="gut[]" value="Отрыжка / срыгивание" id="g7"/><label class="badge-label" for="g7">Отрыжка / срыгивание</label></span>
+        <span><input type="checkbox" name="gut[]" class="badge-check" value="Плохой аппетит" id="g8"/><label class="badge-label" for="g8">🍽️ Плохой аппетит</label></span>
+      </div>
+      <textarea name="gut_d" placeholder="Расскажите подробнее: где именно болит, когда чаще бывает, как выглядит стул..." style="margin-top:12px"></textarea>
+    </div>
+
+    <div class="s-divider">Кожа</div>
+    <div class="q">
+      <div class="badge-wrap">
+        <span><input type="checkbox" class="badge-check" name="skin[]" value="Атопический дерматит/экзема" id="sk1"/><label class="badge-label" for="sk1">🔴 Атопический дерматит</label></span>
+        <span><input type="checkbox" class="badge-check" name="skin[]" value="Сухая шелушащаяся кожа" id="sk2"/><label class="badge-label" for="sk2">Сухая кожа</label></span>
+        <span><input type="checkbox" class="badge-check" name="skin[]" value="Сыпь / крапивница" id="sk3"/><label class="badge-label" for="sk3">Сыпь / крапивница</label></span>
+        <span><input type="checkbox" class="badge-check" name="skin[]" value="Синяки под глазами" id="sk4"/><label class="badge-label" for="sk4">Синяки под глазами</label></span>
+        <span><input type="checkbox" class="badge-check" name="skin[]" value="Бледность" id="sk5"/><label class="badge-label" for="sk5">Бледность</label></span>
+      </div>
+      <textarea name="skin_d" placeholder="Где именно? Что ухудшает — еда, сезон, стресс? Как лечили?" style="margin-top:12px"></textarea>
+    </div>
+
+    <div class="s-divider">Иммунитет и аллергия</div>
+    <div class="q">
+      <div class="badge-wrap">
+        <span><input type="checkbox" class="badge-check" name="imm[]" value="Часто болеет" id="i1"/><label class="badge-label" for="i1">🤧 Часто болеет</label></span>
+        <span><input type="checkbox" class="badge-check" name="imm[]" value="Аденоиды" id="i2"/><label class="badge-label" for="i2">Аденоиды</label></span>
+        <span><input type="checkbox" class="badge-check" name="imm[]" value="Частые отиты" id="i3"/><label class="badge-label" for="i3">Частые отиты</label></span>
+        <span><input type="checkbox" class="badge-check" name="imm[]" value="Аллергия на пыльцу/пыль" id="i4"/><label class="badge-label" for="i4">🌿 Аллергия</label></span>
+        <span><input type="checkbox" class="badge-check" name="imm[]" value="Пищевая непереносимость" id="i5"/><label class="badge-label" for="i5">🍎 Пищевая реакция</label></span>
+        <span><input type="checkbox" class="badge-check" name="imm[]" value="Бронхиальная астма / обструкция" id="i6"/><label class="badge-label" for="i6">Астма / бронхит</label></span>
+      </div>
+      <textarea name="imm_d" placeholder="Если есть пищевые реакции — на что именно и как проявляются?" style="margin-top:12px"></textarea>
+    </div>
+
+    <div class="s-divider">Нервная система и поведение</div>
+    <div class="q">
+      <div class="badge-wrap">
+        <span><input type="checkbox" class="badge-check" name="neuro[]" value="Гиперактивность" id="n1"/><label class="badge-label" for="n1">⚡ Гиперактивность</label></span>
+        <span><input type="checkbox" class="badge-check" name="neuro[]" value="Сложности с вниманием" id="n2"/><label class="badge-label" for="n2">🎯 Внимание</label></span>
+        <span><input type="checkbox" class="badge-check" name="neuro[]" value="Задержка речи" id="n3"/><label class="badge-label" for="n3">💬 Задержка речи</label></span>
+        <span><input type="checkbox" class="badge-check" name="neuro[]" value="Бруксизм" id="n4"/><label class="badge-label" for="n4">😬 Скрипит зубами</label></span>
+        <span><input type="checkbox" class="badge-check" name="neuro[]" value="Тики" id="n5"/><label class="badge-label" for="n5">Тики</label></span>
+        <span><input type="checkbox" class="badge-check" name="neuro[]" value="Частые смены настроения" id="n6"/><label class="badge-label" for="n6">🌪️ Перепады настроения</label></span>
+        <span><input type="checkbox" class="badge-check" name="neuro[]" value="Тревожность / страхи" id="n7"/><label class="badge-label" for="n7">😟 Тревога / страхи</label></span>
+        <span><input type="checkbox" class="badge-check" name="neuro[]" value="Сенсорная чувствительность" id="n8"/><label class="badge-label" for="n8">🌡️ Сенсорность</label></span>
+        <span><input type="checkbox" class="badge-check" name="neuro[]" value="Энурез ночной" id="n9"/><label class="badge-label" for="n9">🌙 Ночной энурез</label></span>
+      </div>
+      <textarea name="neuro_d" placeholder="Если что-то отметили — расскажите подробнее. Как давно? Насколько выражено? Как влияет на жизнь семьи?" style="margin-top:12px"></textarea>
+    </div>
+
+    <div class="s-divider">Сон и энергия</div>
+    <div class="q">
+      <div class="badge-wrap">
+        <span><input type="checkbox" class="badge-check" name="sleep[]" value="Долго засыпает" id="sl1"/><label class="badge-label" for="sl1">Долго засыпает</label></span>
+        <span><input type="checkbox" class="badge-check" name="sleep[]" value="Просыпается ночью" id="sl2"/><label class="badge-label" for="sl2">🌙 Ночные пробуждения</label></span>
+        <span><input type="checkbox" class="badge-check" name="sleep[]" value="Ночные страхи" id="sl3"/><label class="badge-label" for="sl3">😨 Ночные страхи</label></span>
+        <span><input type="checkbox" class="badge-check" name="sleep[]" value="Храп" id="sl4"/><label class="badge-label" for="sl4">Храп</label></span>
+        <span><input type="checkbox" class="badge-check" name="sleep[]" value="Вялость/усталость" id="sl5"/><label class="badge-label" for="sl5">🔋 Вялость / усталость</label></span>
+        <span><input type="checkbox" class="badge-check" name="sleep[]" value="Боли в ногах вечером" id="sl6"/><label class="badge-label" for="sl6">🦵 Боли в ногах вечером</label></span>
+        <span><input type="checkbox" class="badge-check" name="sleep[]" value="Спит хорошо" id="sl7"/><label class="badge-label" for="sl7">😴 Спит хорошо</label></span>
+      </div>
+      <input type="text" name="sleep_hours" placeholder="Сколько часов спит ночью?" style="margin-top:10px"/>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ╔══════════════════════════════╗
+     ║  6. ПИТАНИЕ                  ║
+     ╚══════════════════════════════╝ -->
+<div class="section" id="s5">
+<div class="s-card acc-teal">
+  <div class="s-head">
+    <div class="s-icon-wrap">🥗</div>
+    <div><div class="s-title">Питание</div><div class="s-sub">Еда — фундамент здоровья</div></div>
+  </div>
+  <div class="s-body">
+
+    <div class="q">
+      <span class="q-label">Аппетит ребёнка</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="appetite" value="Хороший, ест всё"/><span class="opt-em">😋</span><span class="opt-txt">Хороший — ест охотно и разнообразно</span></label>
+        <label class="opt"><input type="radio" name="appetite" value="Избирательный"/><span class="opt-em">🤔</span><span class="opt-txt">Избирательный — принимает только определённые продукты</span></label>
+        <label class="opt"><input type="radio" name="appetite" value="Плохой"/><span class="opt-em">😔</span><span class="opt-txt">Плохой — приходится уговаривать</span></label>
+        <label class="opt"><input type="radio" name="appetite" value="Очень плохой"/><span class="opt-em">😰</span><span class="opt-txt">Очень плохой — почти не ест</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Есть ли выраженная избирательность в еде?</span>
+      <div class="q-tip"><span class="q-tip-icon">💡</span>Отказ от определённых текстур, запахов или целых групп продуктов — это важный клинический сигнал, связанный с сенсорными особенностями или дефицитом цинка.</div>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="selective" value="Нет, ест разнообразно"/><span class="opt-txt">Нет, ест достаточно разнообразно</span></label>
+        <label class="opt"><input type="radio" name="selective" value="Умеренная избирательность"/><span class="opt-txt">Умеренная избирательность</span></label>
+        <label class="opt"><input type="radio" name="selective" value="Выраженная — очень ограниченный список"/><span class="opt-txt">Выраженная — очень узкий список</span></label>
+      </div>
+      <textarea name="selective_d" placeholder="Что именно отказывается есть? Есть ли реакция на текстуру, запах, вид? Расскажите подробнее..." style="margin-top:10px"></textarea>
+    </div>
+
+    <div class="q">
+      <span class="q-label">После каких продуктов вы замечаете ухудшение?</span>
+      <div class="q-tip"><span class="q-tip-icon">🌟</span>Изменения поведения, стула, кожи, сна или настроения после еды — ваши наблюдения часто точнее любых тестов.</div>
+      <textarea name="food_react" class="tall" placeholder="Например: после молока — вздутие и плохой сон. После сладкого — капризы и сыпь. После хлеба — болит живот..."></textarea>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Молочные продукты</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="dairy" value="Без ограничений"/><span class="opt-txt">Ест свободно</span></label>
+        <label class="opt"><input type="radio" name="dairy" value="Ограниченно"/><span class="opt-txt">В небольших количествах</span></label>
+        <label class="opt"><input type="radio" name="dairy" value="Исключены"/><span class="opt-txt">Полностью исключены</span></label>
+        <label class="opt"><input type="radio" name="dairy" value="Есть реакция"/><span class="opt-txt">Есть реакция на молочное</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Глютен (хлеб, макароны, выпечка)</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="gluten" value="Ест свободно"/><span class="opt-txt">Ест свободно</span></label>
+        <label class="opt"><input type="radio" name="gluten" value="Ограниченно"/><span class="opt-txt">Ограниченно</span></label>
+        <label class="opt"><input type="radio" name="gluten" value="Исключён"/><span class="opt-txt">Полностью исключён</span></label>
+        <label class="opt"><input type="radio" name="gluten" value="Есть реакция"/><span class="opt-txt">Есть реакция на глютен</span></label>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Сладкое — как часто?</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="sugar" value="Редко"/><span class="opt-txt">Редко, почти нет в рационе</span></label>
+        <label class="opt"><input type="radio" name="sugar" value="Несколько раз в неделю"/><span class="opt-txt">Несколько раз в неделю</span></label>
+        <label class="opt"><input type="radio" name="sugar" value="Каждый день"/><span class="opt-txt">Каждый день</span></label>
+        <label class="opt"><input type="radio" name="sugar" value="Много каждый день"/><span class="opt-em">🍭</span><span class="opt-txt">Много каждый день — трудно ограничить</span></label>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ╔══════════════════════════════╗
+     ║  7. ПРЕПАРАТЫ И ДОБАВКИ      ║
+     ╚══════════════════════════════╝ -->
+<div class="section" id="s6">
+<div class="s-card acc-mint">
+  <div class="s-head">
+    <div class="s-icon-wrap">💊</div>
+    <div><div class="s-title">Препараты и добавки</div><div class="s-sub">Важно для безопасного протокола</div></div>
+  </div>
+  <div class="s-body">
+
+    <div class="intro-card" style="margin:14px 14px 0;border-radius:12px">
+      <span class="intro-card-icon">⚠️</span>
+      <div><strong>Критически важный раздел</strong><p>Без этой информации невозможно безопасно составить протокол. Укажите всё, что принимает ребёнок — даже то, что кажется несущественным.</p></div>
+    </div>
+
+    <div class="q" style="margin-top:16px">
+      <span class="q-label">Постоянные лекарства</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="meds_yn" value="Не принимает постоянных лекарств"/><span class="opt-em">✅</span><span class="opt-txt">Не принимает постоянных лекарств</span></label>
+        <label class="opt"><input type="radio" name="meds_yn" value="Принимает"/><span class="opt-txt">Принимает — расскажу ниже</span></label>
+      </div>
+      <div class="cond" id="c_meds">
+        <div class="cond-inner">
+          <label>Название, доза, по какому поводу:</label>
+          <textarea name="meds_d" class="tall" placeholder="Например:&#10;Левотироксин 25 мкг — утром — гипотиреоз&#10;Монтелукаст 5 мг — вечером — астма"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Витамины и БАДы, которые ребёнок принимает сейчас</span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="supps_yn" value="Не принимает"/><span class="opt-txt">Не принимает добавки</span></label>
+        <label class="opt"><input type="radio" name="supps_yn" value="Принимает"/><span class="opt-txt">Принимает — расскажу ниже</span></label>
+      </div>
+      <div class="cond" id="c_supps">
+        <div class="cond-inner">
+          <label>Добавка, форма, доза, как давно:</label>
+          <textarea name="supps_d" class="tall" placeholder="Например:&#10;Витамин D3 — 1000 МЕ — капли — 3 месяца&#10;Омега-3 — жевательные — 500 мг — с осени"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Был ли опыт с добавками, который дал заметный эффект?</span>
+      <div class="q-tip"><span class="q-tip-icon">💡</span>Как положительный, так и отрицательный — реакции на добавки это ценная информация о состоянии организма.</div>
+      <textarea name="supps_react" placeholder="Например: от пробиотика улучшился стул. От магния — лучше спит. От железа — была тошнота..."></textarea>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Аллергия на компоненты добавок?</span>
+      <div class="opts">
+        <label class="opt"><input type="checkbox" name="allerg[]" value="Желатин"/><span class="opt-txt">Желатин (оболочка капсул)</span></label>
+        <label class="opt"><input type="checkbox" name="allerg[]" value="Соя"/><span class="opt-txt">Соя</span></label>
+        <label class="opt"><input type="checkbox" name="allerg[]" value="Рыба / морепродукты"/><span class="opt-txt">Рыба / морепродукты</span></label>
+        <label class="opt"><input type="checkbox" name="allerg[]" value="Нет аллергии"/><span class="opt-em">✅</span><span class="opt-txt">Нет известной аллергии</span></label>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ╔══════════════════════════════╗
+     ║  8. ФИНАЛ                    ║
+     ╚══════════════════════════════╝ -->
+<div class="section" id="s7">
+<div class="s-card acc-warm">
+  <div class="s-head">
+    <div class="s-icon-wrap">🌿</div>
+    <div><div class="s-title">Последний шаг</div><div class="s-sub">Вы почти у цели — совсем немного!</div></div>
+  </div>
+  <div class="s-body">
+
+    <div class="q">
+      <span class="q-label">Что для вас самое важное в этой консультации?</span>
+      <div class="q-tip"><span class="q-tip-icon">🌟</span>Что вы хотите понять? Что изменить? Что беспокоит вас как родителя прямо сейчас? Напишите честно — мы читаем каждое слово.</div>
+      <textarea name="goal" class="xtall" placeholder="Например: хочу понять причину, а не просто лечить симптомы. Или: хочу понять, что не так с питанием. Или: очень тревожит поведение..."></textarea>
+    </div>
+
+    <div class="q">
+      <span class="q-label">Всё, что не вошло выше — добавьте здесь</span>
+      <div class="q-tip"><span class="q-tip-icon">💛</span>Ваши наблюдения, интуиция, детали, которые кажутся важными. Нет ничего незначительного — мы читаем каждое слово.</div>
+      <textarea name="extra" class="xtall" placeholder="Пишите свободно, любыми словами..."></textarea>
+    </div>
+
+    <input type="hidden" name="_subject" value="🌿 Новая анкета маленького пациента — Доктор Катя"/>
+
+  </div>
+</div>
+</div>
+
+<!-- NAV BUTTONS -->
+<div class="nav" id="nav">
+  <button type="button" class="btn btn-back" id="btnBack" onclick="go(-1)">←</button>
+  <button type="button" class="btn btn-next" id="btnNext" onclick="go(1)">Дальше →</button>
+</div>
+
+<!-- SUCCESS -->
+<div class="success" id="success">
+  <span class="success-anim">🌿</span>
+  <h2>Анкета отправлена!</h2>
+  <p>Спасибо, что так подробно рассказали о вашем малыше. Это помогает нам подготовиться к консультации максимально глубоко.</p>
+  <p style="margin-top:14px">Мы свяжемся с вами совсем скоро 🤍</p>
+  <div class="success-sign">С любовью к делу и уважением к Вам,<br>Врач интегративной и функциональной медицины<br><strong>Квахаджелидзе Екатерина Гивиевна 🌿</strong></div>
+  <a href="https://t.me/dr_kvakhadzhelidze" target="_blank" rel="noopener" style="
+    display:inline-flex;align-items:center;gap:10px;
+    margin-top:28px;
+    padding:14px 24px;
+    background:linear-gradient(135deg,#29a8e0,#1a8bbf);
+    color:#fff;
+    border-radius:16px;
+    text-decoration:none;
+    font-family:'Nunito',sans-serif;
+    font-size:15px;font-weight:800;
+    box-shadow:0 5px 18px rgba(41,168,224,0.35);
+    transition:transform .15s,box-shadow .15s;
+  " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.716l-1.68 7.921c-.124.553-.452.688-.916.428l-2.54-1.873-1.227 1.181c-.136.136-.25.25-.512.25l.182-2.582 4.7-4.247c.204-.182-.045-.283-.317-.101L8.14 14.239l-2.5-.782c-.543-.17-.554-.543.114-.803l9.763-3.765c.453-.165.85.101.413.827z" fill="white"/>
+    </svg>
+    Мой Telegram-канал о медицине и жизни
+  </a>
+  <p style="margin-top:10px;font-size:12px;color:#BFB8B0;font-weight:600">@dr_kvakhadzhelidze</p>
+</div>
+
+<script>
+const TOTAL = 8;
+let cur = 0;
+
+// Build dots
+const dotsCont = document.getElementById('dots');
+for(let i=0;i<TOTAL;i++){
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.id='d'+i;dotsCont.appendChild(d);
+}
+
+function updateUI(){
+  document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===cur));
+  for(let i=0;i<TOTAL;i++){
+    const d=document.getElementById('d'+i);
+    d.className='dot'+(i===cur?' active':i<cur?' done':'');
+  }
+  const pct=Math.round(((cur+1)/TOTAL)*100);
+  document.getElementById('pFill').style.width=pct+'%';
+  document.getElementById('pLabel').textContent=(cur+1)+' / '+TOTAL;
+  document.getElementById('btnBack').style.display=cur>0?'block':'none';
+  const btnNext=document.getElementById('btnNext');
+  if(cur===TOTAL-1){
+    btnNext.textContent='Отправить анкету ✓';
+    btnNext.className='btn btn-submit';
+    btnNext.onclick=submit;
+  } else {
+    btnNext.textContent='Дальше →';
+    btnNext.className='btn btn-next';
+    btnNext.onclick=()=>go(1);
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function go(dir){
+  if(dir===1&&cur<TOTAL-1)cur++;
+  else if(dir===-1&&cur>0)cur--;
+  updateUI();
+}
+
+function submit(){
+  const form=document.getElementById('form');
+  const data=new FormData(form);
+  fetch(form.action,{method:'POST',body:data,headers:{Accept:'application/json'}})
+    .then(r=>{
+      if(r.ok){
+        document.querySelectorAll('.section,.nav,.dots').forEach(e=>e.style.display='none');
+        document.getElementById('pFill').style.width='100%';
+        document.getElementById('pLabel').textContent='Готово! ✓';
+        document.getElementById('success').classList.add('show');
+        window.scrollTo({top:0,behavior:'smooth'});
+      } else {
+        alert('Что-то пошло не так. Попробуйте ещё раз.');
+      }
+    }).catch(()=>alert('Ошибка соединения. Проверьте интернет.'));
+}
+
+// Highlight selected options
+document.addEventListener('change',function(e){
+  const el=e.target;
+  if(el.type==='radio'||el.type==='checkbox'){
+    const name=el.name;
+    if(el.type==='radio'){
+      document.querySelectorAll(`input[name="${name}"]`).forEach(i=>{
+        i.closest('.opt')&&i.closest('.opt').classList.toggle('selected',i.checked);
+      });
+    } else {
+      el.closest('.opt')&&el.closest('.opt').classList.toggle('selected',el.checked);
+    }
+    // Conditionals
+    const map={
+      'preg_meds':['Да','c_preg_meds'],
+      'jaundice':['Фототерапия','c_jaundice'],
+      'surgery':['Да','c_surgery'],
+      'meds_yn':['Принимает','c_meds'],
+      'supps_yn':['Принимает','c_supps'],
+    };
+    if(map[el.name]&&el.type==='radio'){
+      const [val,id]=map[el.name];
+      document.getElementById(id).classList.toggle('show',el.value===val&&el.checked);
+    }
+  }
+});
+
+updateUI();
+</script>
+</body>
+</html>
